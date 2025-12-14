@@ -1,7 +1,7 @@
 
-function Button ({label}) {
+function Button ({label,className}) {
     return (
-    <button >
+    <button className={`btn ${className || ""}`}>
         {label}
     </button>
     );
