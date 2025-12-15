@@ -1,31 +1,39 @@
-const phrases = [
-    "Technology that works for you",
-    "Building solutions, not just software",
-    "Innovation starts with simplicity",
-    "Performance. Scalability. Reliability."
-];
+import { useEffect,useRef } from "react";
 
+const phrases = [
+    "We are a brand desing studio",
+];
 function FrasesCarrusel() {
+    const boxRef = useRef(null);
+    const positionRef = useRef(0);
+    const animationRef = useRef(null);
+
+    useEffect(() => {
+        const box = boxRef.current;
+        if (!box) return;
+
+        const animate = () => {
+            positionRef.current += -1;
+            box.style.transform = `translateX(${positionRef.current}px)`;
+            animationRef.current = requestAnimationFrame(animate);
+        };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+        cancelAnimationFrame(animationRef.current);
+    };
+    }, []);
 return (
-    <div
-        id="phraseCarousel"
-        className="carousel slide mx-auto bg-black text-light"
-        data-bs-ride="carousel"
-        data-bs-interval="3000"
-        data-bs-pause="false"
-    >
-    <div className="carousel-inner text-center">
-        {phrases.map((phrase, index) => (
-        <div
-            key={index}
-            className={`carousel-item ${index === 0 ? "active" : ""}`}
-        >
-            <p className="fw-semibold h2">{phrase}</p>
-        </div>
-        ))}
-        </div>
+    <div className="container-fluid overflow-hidden bg-dark text-light align-middle p-3">
+        <span className="align-middle float-end">
+            <img className=" mx-4" src="/src/assets/react.svg" alt="" />
+            <p className="float-end m-0 h5" >{phrases}</p>
+        </span>
     </div>
-    );
+    
+    )
 }
 
 export default FrasesCarrusel;
+
